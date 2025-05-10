@@ -45,6 +45,29 @@
 	padding: 20px;
 }
 
+#finishBtn {
+    cursor: pointer;
+    /* 移除 font-size 和 text-align */
+    transition: transform 0.1s ease-in-out;
+    border: 2px solid $borderColor;
+    border-radius: 2px;
+    background-color: transparent; /* 背景透明 */
+    background-size: contain;      /* 图片适应按钮大小 */
+    background-repeat: no-repeat;  /* 不重复 */
+    background-position: center;   /* 居中 */
+
+    position: relative;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;    /* 根据图片实际尺寸设置 */
+    height: 64px;    /* 根据图片实际尺寸设置 */
+    margin: 15px auto 0;
+    float: none;
+}
+
+
+
 .v-line {
 	border-left: 2px solid gray;
 	top: 50%;

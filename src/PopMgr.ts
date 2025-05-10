@@ -8,6 +8,7 @@ export class PopMgr {
 	private static nowDesc: string = "";
 	private static nowID: string = "";
 	private static nowLogo: string = "";
+	private static currentQuest: quest;
 
 	static onCopyDesc = () => {
 		Utils.copyH5Str(Utils.removeHTMLTags(`${this.nowTitle}\n${this.nowDesc}`));
@@ -30,7 +31,17 @@ export class PopMgr {
 		);
 	};
 
+    private static updateFinishButton(isCompleted?: boolean) {
+        $("#finishBtn").css(
+            "background-image",
+            isCompleted 
+                ? "url('./static/finished.png')" 
+                : "url('./static/unfinish.png')"
+        );
+    }
+
 	static showPopup(res: quest) {
+		this.currentQuest = res;
 		this.nowTitle = Utils.expMCcolor(res.title);
 		this.nowDesc = this.processDesc(Utils.expMCcolor(res.data));
 		this.nowID = res.quest_id;
@@ -40,6 +51,7 @@ export class PopMgr {
 		$("#popTitle").html(this.nowTitle);
 		$("#popDesc").html(this.nowDesc);
 		$("#quest_logo")[0].setAttribute("src", this.nowLogo);
+		this.updateFinishButton(res.completed);
 
 		$("#mainPage").focus();
 		removeEventListener("keydown", this.onKeyDown);
@@ -50,6 +62,27 @@ export class PopMgr {
 
 		$("#popup").off("click");
 		$("#popup").on("click", this.onClickPop);
+
+
+		// 绑定点击完成任务
+        $("#finishBtn")
+            .off("click")
+            .on("click", () => {
+                if (this.currentQuest) {
+					if (this.currentQuest.completed){
+						TipsMgr.showTips(
+							ProjectData.language == lang.zh ? `任务已被完成` : `Quest has been finished`);
+					}
+					else{
+						this.currentQuest.completed = true; // 修改原数据
+						this.updateFinishButton(true);
+						TipsMgr.showTips(
+							ProjectData.language == lang.zh ? `完成任务：${this.nowTitle}` : `Quest ${this.nowTitle} complete`);
+					}
+
+                }
+            });
+
 
 		// 绑定点击复制任务详情
 		$("#copyBtn").off("click");
