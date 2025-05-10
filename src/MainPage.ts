@@ -124,7 +124,8 @@ export class MainPage {
 
 		$("#btnCloseSp").on("click", this.onClosePop);
 
-		$("#changeLang").on("click", this.onChangeLang);
+		// $("#changeLang").on("click", this.onChangeLang);
+		// 暂时禁用了切换语言功能
 
 		$("#btnShowMsg").on("click", this.onClickInfo);
 
