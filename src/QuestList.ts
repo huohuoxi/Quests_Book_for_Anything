@@ -10,6 +10,26 @@ export class QuestList {
 	private static pageData: any;
 	/**搜索任务列表 */
 	private static questList: quest[];
+
+	static updateIcon(res: quest){
+		let questlist = this.pageData.series[0].data;
+		for (let i = 0; i < questlist.length; i++) {
+			if (questlist[i].name === res.quest_id && questlist[i].fake) {
+				let foundQuest = questlist[i];
+				let newSymbol = foundQuest.symbol.split(".")[0]+"_finish."+foundQuest.symbol.split(".")[1];
+				foundQuest.symbol = newSymbol;
+				break;
+			}
+		}
+		for (let i = 0; i < questlist.length; i++) {
+			if (questlist[i].name === res.name && (!questlist[i].fake)) {
+				questlist[i].completed = true
+				break;
+			}
+		}
+		this.resetChart();
+	}
+
 	// 重置echarts
 	static resetChart() {
 		this.echarts?.clear();

@@ -12,7 +12,7 @@ export class ProjectData {
 	/**是否为手机 */
 	static isPhone: boolean = false;
 
-	static selectVersionIndex: number = 1;
+	static selectVersionIndex: number = 0;
 	static getPath(url: string) {
 		return (
 			"version/" +
@@ -43,6 +43,7 @@ export class ProjectData {
 		symbol: "image://static/not_main.png", //main或者notmain
 		x: 252.0, //任务一致
 		y: 180.0, //任务一致
+		fake: true,
 		select: {
 			disabled: true,
 		},

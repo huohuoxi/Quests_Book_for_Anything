@@ -2,6 +2,7 @@ import { lang, quest } from "./Define";
 import { ProjectData } from "./ProjectData";
 import { TipsMgr } from "./TipsMgr";
 import { Utils } from "./Utils";
+import { QuestList } from "./QuestList"
 
 export class PopMgr {
 	private static nowTitle: string = "";
@@ -74,10 +75,10 @@ export class PopMgr {
 							ProjectData.language == lang.zh ? `任务已被完成` : `Quest has been finished`);
 					}
 					else{
-						this.currentQuest.completed = true; // 修改原数据
 						this.updateFinishButton(true);
+						QuestList.updateIcon(this.currentQuest) //更新源数据的图标和是否完成
 						TipsMgr.showTips(
-							ProjectData.language == lang.zh ? `完成任务：${this.nowTitle}` : `Quest ${this.nowTitle} complete`);
+							ProjectData.language == lang.zh ? `完成任务!` : `Quest complete!`);
 					}
 
                 }
@@ -108,7 +109,7 @@ export class PopMgr {
 			ProjectData.language == lang.zh ? "复制任务链接" : "Copy Link"
 		);
 
-		$("btnClosePop").off("click");
+		$("#btnClosePop").off("click");
 		$("#btnClosePop").on("click", this.hidePopup);
 
 		$("#screenShot").off("click");

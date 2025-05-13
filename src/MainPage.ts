@@ -165,16 +165,17 @@ export class MainPage {
 								let quest = questList[i];
 								qn[quest.title] = quest;
 								qid[quest.quest_id] = quest;
-								// //添加一个假任务
+								// //添加一个假任务:假任务就是任务下面的边框
 								let fakeQuest = Utils.deepClone(ProjectData.fakeQuest);
 								fakeQuest.x = quest.x;
 								fakeQuest.y = quest.y;
-								fakeQuest.name = nameIndex; // quest.quest_id;
+								fakeQuest.name = quest.quest_id;
 								nameIndex++;
 								fakeQuest.symbolSize = Math.ceil(quest.symbolSize * 1.3);
 								fakeQuest.symbol =
 									"image://static/" +
 									(quest.is_main == 1 ? "main" : "not_main") +
+									(quest.completed ? "_finish" : "") +
 									".png";
 								fakeQuestList.push(fakeQuest);
 							}
